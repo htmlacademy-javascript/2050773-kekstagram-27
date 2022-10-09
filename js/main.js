@@ -14,7 +14,7 @@ const isMaxLength = function(string, maxLength) {
 
 isMaxLength();
 
-const DESCRIPTION = [
+const DESCRIPTIONS = [
   'Ну мы',
   '2022 be like',
   'Дорогие подписчики, это вам от меня, не завидуйте',
@@ -22,7 +22,7 @@ const DESCRIPTION = [
   'Мой личный топ мест с лучшим кебабом в Берлине'
 ];
 
-const MESSAGE = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -31,7 +31,7 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const NAME = [
+const NAMES = [
   'Василиса',
   'Василиск',
   'Доминик',
@@ -40,43 +40,29 @@ const NAME = [
   'Антонина',
 ];
 
-const DESCRIPTION_ID = Array.from(Array(25)).map((e,i)=>i + 1);
-
-const PHOTO_ID = Array.from(Array(25)).map((e,i)=>i + 1);
-
-const COMMENT_ID = Array.from(Array(200)).map((e,i)=>i + 1);
-
-const AVATAR_ID = Array.from(Array(6)).map((e,i)=>i + 1);
-
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-const getUniqueID = function(array) {
-  if (array.length === 1) {
-    return array[0];
-  } else {
-    const IDindex = getRandomNumber(0, array.length - 1);
-    const ID = array[IDindex];
-    array = array.splice(IDindex, 1);
-    return ID;
-  }
-};
-
-const creatComment = () => ({
-  id: getUniqueID(COMMENT_ID),
-  avatar: `img/avatar-${ getUniqueID(AVATAR_ID) }.svg`,
-  message: getRandomArrayElement(MESSAGE),
-  name: getRandomArrayElement(NAME),
+const createComment = (index) => ({
+  id: index,
+  avatar: `img/avatar-${ index }.svg`,
+  message: getRandomArrayElement(MESSAGES),
+  name: getRandomArrayElement(NAMES),
 });
 
-const creatDescription = () => ({
-  id: getUniqueID(DESCRIPTION_ID),
-  url: `photos/${ getUniqueID(PHOTO_ID) }.jpg`,
-  description: getRandomArrayElement(DESCRIPTION),
+const COMMENTS = [];
+for (let i = 1; i <= 6; i++) {
+  COMMENTS.push(createComment(i));
+}
+
+const createDescription = (index) => ({
+  id: index,
+  url: `photos/${ index }.jpg`,
+  description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomNumber(15, 200),
-  comments: Array.from({length: 6}, creatComment)
+  comments: COMMENTS,
 });
 
-const similarDescription = Array.from({length: 25}, creatDescription);
-
-similarDescription();
-
+const SIMILAR_DESCRIPTION = [];
+for (let i = 1; i <= 25; i++) {
+  SIMILAR_DESCRIPTION.push(createDescription(i));
+}
