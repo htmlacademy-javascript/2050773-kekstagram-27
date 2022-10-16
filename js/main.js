@@ -1,3 +1,3 @@
-import {createDescriptionList} from './data.js';
+import {createDescriptionList} from './create-description-list.js';
 
 createDescriptionList();
