@@ -7,15 +7,14 @@ const similarPictures = createDescriptionList();
 
 const similarUserFragment = document.createDocumentFragment();
 
-similarPictures.forEach(({url, likes, comments}) => {
+similarPictures.forEach(({url, likes, comments, description}) => {
   const userPicture = pictureTemplate.cloneNode(true);
 
   userPicture.querySelector('.picture__img').src = url;
+  userPicture.querySelector('.picture__img').alt = description;
   userPicture.querySelector('.picture__likes').textContent = likes;
   userPicture.querySelector('.picture__comments').textContent = comments.length;
-  picturesList.appendChild(userPicture);
-  return userPicture;
+
+  similarUserFragment.appendChild(userPicture);
 });
-
 picturesList.appendChild(similarUserFragment);
-
