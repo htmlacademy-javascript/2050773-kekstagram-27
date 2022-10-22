@@ -12,6 +12,4 @@ const isMaxLength = function(string, maxLength) {
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-export {getRandomNumber, getRandomArrayElement};
-
-isMaxLength();
+export {getRandomNumber, getRandomArrayElement, isMaxLength};
