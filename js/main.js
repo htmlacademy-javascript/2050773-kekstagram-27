@@ -1,6 +1,6 @@
 import {createDescriptionList} from './create-description-list.js';
+import {createPreviews} from './create-previews.js';
 
-import './create-preview.js';
+const descriptions = createDescriptionList();
 
-createDescriptionList();
-
+createPreviews(descriptions);
