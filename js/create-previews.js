@@ -1,7 +1,8 @@
-const picturesList = document.querySelector('.pictures');
-const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+// import {showBigPicture} from 'create-big-picture.js';
 
 const createPreviews = function(data) {
+  const picturesList = document.querySelector('.pictures');
+  const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   const similarUserFragment = document.createDocumentFragment();
 
   data.forEach(({url, likes, comments, description}) => {
@@ -13,6 +14,10 @@ const createPreviews = function(data) {
     userPicture.querySelector('.picture__comments').textContent = comments.length;
 
     similarUserFragment.appendChild(userPicture);
+
+    // userPicture.addEventListener('click', () => {
+    //   showBigPicture(data);
+    // });
   });
   picturesList.appendChild(similarUserFragment);
 };
