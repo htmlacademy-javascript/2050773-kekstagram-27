@@ -5,7 +5,7 @@ const createPreviews = function(data) {
   const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   const similarUserFragment = document.createDocumentFragment();
 
-  data.forEach(({url, likes, comments, description}) => {
+  data.forEach(({url, likes, comments, description, id}) => {
     const userPicture = pictureTemplate.cloneNode(true);
 
     userPicture.querySelector('.picture__img').src = url;
@@ -16,7 +16,7 @@ const createPreviews = function(data) {
     similarUserFragment.appendChild(userPicture);
 
     userPicture.addEventListener('click', () => {
-      showBigPicture(data);
+      showBigPicture(data[id - 1]);
     });
   });
   picturesList.appendChild(similarUserFragment);
