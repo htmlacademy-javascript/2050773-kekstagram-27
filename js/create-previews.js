@@ -1,4 +1,4 @@
-// import {showBigPicture} from 'create-big-picture.js';
+import {showBigPicture} from './create-big-picture.js';
 
 const createPreviews = function(data) {
   const picturesList = document.querySelector('.pictures');
@@ -15,9 +15,9 @@ const createPreviews = function(data) {
 
     similarUserFragment.appendChild(userPicture);
 
-    // userPicture.addEventListener('click', () => {
-    //   showBigPicture(data);
-    // });
+    userPicture.addEventListener('click', () => {
+      showBigPicture(data);
+    });
   });
   picturesList.appendChild(similarUserFragment);
 };
