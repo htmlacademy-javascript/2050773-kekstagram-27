@@ -33,7 +33,7 @@ const hideBigPicture = () => {
   body.classList.remove('modal-open');
 };
 
-function OnEscKeyDown(evt) {
+function onEscKeyDown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     hideBigPicture();
@@ -52,12 +52,13 @@ const showBigPicture = (data) => {
   body.classList.add('modal-open');
   commentsList.classList.add('hidden');
   commentsLoader.classList.add('hidden');
-  document.addEventListener('keydown', OnEscKeyDown);
+  document.addEventListener('keydown', onEscKeyDown);
 
   createBigPictureDetails(data);
   createComments(data.comments);
+
+  cancelButton.addEventListener('click', hideBigPicture);
 };
 
-cancelButton.addEventListener('click', hideBigPicture);
 
 export {showBigPicture};
