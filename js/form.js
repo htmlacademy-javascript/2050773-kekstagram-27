@@ -64,6 +64,12 @@ const onFormSubmit = (evt) => {
   pristine.validate();
 };
 
-uploadFile.addEventListener('change', openEditForm);
-editFormClose.addEventListener('click', closeEditForm);
-uploadForm.addEventListener('submit',onFormSubmit);
+const initForm = function() {
+  uploadFile.addEventListener('change', openEditForm);
+  editFormClose.addEventListener('click', closeEditForm);
+  uploadForm.addEventListener('submit',onFormSubmit);
+};
+
+export {initForm};
+
+
