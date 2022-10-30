@@ -35,6 +35,7 @@ const hideBigPicture = () => {
 
 function onEscKeyDown(evt) {
   if (evt.key === 'Escape') {
+    evt.stopPropagation();
     evt.preventDefault();
     hideBigPicture();
   }
@@ -59,6 +60,5 @@ const showBigPicture = (data) => {
 
   cancelButton.addEventListener('click', hideBigPicture);
 };
-
 
 export {showBigPicture};
