@@ -17,16 +17,45 @@ const createComment = (data) => {
   return comment;
 };
 
-const createComments = (comments) => {
-  commentsList.innerHTML = '';
+const UPLOAD_COMMENTS_AMOUNT = 5;
+
+const showMoreComments = function(comments, moreComments) {
 
   const fragment = document.createDocumentFragment();
-  comments.forEach((comment) => {
-    const commentElement = createComment(comment);
-    fragment.append(commentElement);
-  });
+
+  if (comments.length > UPLOAD_COMMENTS_AMOUNT) {
+    moreComments += UPLOAD_COMMENTS_AMOUNT;
+
+    for(let i = 0; i < UPLOAD_COMMENTS_AMOUNT; i++) {
+      const commentElement = createComment(comments.shift(i));
+      fragment.append(commentElement);
+    }
+  } else {
+    moreComments += comments.length;
+    comments.forEach((comment, index) => {
+      const commentElement = createComment(comments.shift(index));
+      fragment.append(commentElement);
+    });
+  }
   commentsList.append(fragment);
+  bigPicture.querySelector('.comments-count-current').textContent = moreComments;
 };
+
+
+const createComments = (comments) => {
+  const moreComments = UPLOAD_COMMENTS_AMOUNT;
+  commentsList.innerHTML = '';
+  const fragment = document.createDocumentFragment();
+  bigPicture.querySelector('.comments-count-current').textContent = moreComments;
+
+  for(let i = 0; i < UPLOAD_COMMENTS_AMOUNT; i++) {
+    const commentElement = createComment(comments.shift(i));
+    fragment.append(commentElement);
+  }
+  commentsList.append(fragment);
+  commentsLoader.addEventListener('click', () => showMoreComments(comments, moreComments));
+};
+
 
 const hideBigPicture = () => {
   bigPicture.classList.add('hidden');
@@ -51,8 +80,6 @@ const createBigPictureDetails = (data) => {
 const showBigPicture = (data) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  commentsList.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
   document.addEventListener('keydown', onEscKeyDown);
 
   createBigPictureDetails(data);
@@ -60,5 +87,6 @@ const showBigPicture = (data) => {
 
   cancelButton.addEventListener('click', hideBigPicture);
 };
+
 
 export {showBigPicture};
