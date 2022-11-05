@@ -62,20 +62,27 @@ const resetEffects = () => {
   updateSlider();
 };
 
-noUiSlider.create(sliderElement, {
-  range: {
-    min: DEFAULT_EFFECT.min,
-    max: DEFAULT_EFFECT.max,
-  },
-  start: DEFAULT_EFFECT.max,
-  step: DEFAULT_EFFECT.step,
-  connect: 'lower',
-});
+const initEffects = () => {
+  noUiSlider.create(sliderElement, {
+    range: {
+      min: DEFAULT_EFFECT.min,
+      max: DEFAULT_EFFECT.max,
+    },
+    start: DEFAULT_EFFECT.max,
+    step: DEFAULT_EFFECT.step,
+    connect: 'lower',
+  });
+};
+
+initEffects();
 
 updateSlider();
 
+const changeEffect = () => {
+  form.addEventListener('change', onFormChange);
+  sliderElement.noUiSlider.on('update', onSliderUpdate);
+};
 
-form.addEventListener('change', onFormChange);
-sliderElement.noUiSlider.on('update', onSliderUpdate);
+changeEffect();
 
 export {resetEffects};

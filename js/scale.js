@@ -38,7 +38,11 @@ const resetScale = () => {
   scaleImage();
 };
 
-smallerButton.addEventListener('click', onSmallerButtonClick);
-biggerButton.addEventListener('click', onBiggerButtonClick);
+const changeScale = () => {
+  smallerButton.addEventListener('click', onSmallerButtonClick);
+  biggerButton.addEventListener('click', onBiggerButtonClick);
+};
+
+changeScale();
 
 export {resetScale};
