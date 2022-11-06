@@ -72,17 +72,15 @@ const initEffects = () => {
     step: DEFAULT_EFFECT.step,
     connect: 'lower',
   });
+
+  const changeEffect = () => {
+    form.addEventListener('change', onFormChange);
+    sliderElement.noUiSlider.on('update', onSliderUpdate);
+  };
+
+  changeEffect();
+
 };
 
-initEffects();
 
-updateSlider();
-
-const changeEffect = () => {
-  form.addEventListener('change', onFormChange);
-  sliderElement.noUiSlider.on('update', onSliderUpdate);
-};
-
-changeEffect();
-
-export {resetEffects};
+export {initEffects, resetEffects};
