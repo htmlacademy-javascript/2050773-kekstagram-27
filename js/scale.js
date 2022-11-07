@@ -43,4 +43,4 @@ const initScale = () => {
   biggerButton.addEventListener('click', onBiggerButtonClick);
 };
 
-export {initScale, resetScale};
+export {initScale, scaleImage};

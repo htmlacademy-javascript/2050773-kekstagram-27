@@ -73,13 +73,8 @@ const initEffects = () => {
     connect: 'lower',
   });
 
-  const changeEffect = () => {
-    form.addEventListener('change', onFormChange);
-    sliderElement.noUiSlider.on('update', onSliderUpdate);
-  };
-
-  changeEffect();
-
+  form.addEventListener('change', onFormChange);
+  sliderElement.noUiSlider.on('update', onSliderUpdate);
 };
 
 

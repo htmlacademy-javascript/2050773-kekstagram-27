@@ -1,5 +1,5 @@
 import {isEscapeKey} from './utils.js';
-import {resetScale} from './scale.js';
+import {scaleImage} from './scale.js';
 import {resetEffects} from './effects.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
@@ -36,16 +36,12 @@ const showModal = () => {
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
-const onFileInputChange = () => {
-  showModal();
-};
-
 function closeEditForm () {
   editForm.classList.add('hidden');
   body.classList.remove('modal-open');
   uploadForm.reset();
   pristine.reset();
-  resetScale();
+  scaleImage();
   resetEffects();
   document.removeEventListener('keydown', onPopupEscKeydown);
 }
@@ -73,7 +69,7 @@ const onFormSubmit = (evt) => {
 };
 
 const initForm = () => {
-  uploadFile.addEventListener('change', onFileInputChange);
+  uploadFile.addEventListener('change', showModal);
   editFormClose.addEventListener('click', closeEditForm);
   uploadForm.addEventListener('submit',onFormSubmit);
 };
