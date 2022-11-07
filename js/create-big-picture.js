@@ -17,16 +17,16 @@ const createComment = (data) => {
   return comment;
 };
 
-const UPLOAD_COMMENTS_AMOUNT = 5;
+const SHOW_COMMENTS_AMOUNT = 5;
 
 const showMoreComments = function(comments, moreComments) {
 
   const fragment = document.createDocumentFragment();
 
-  if (comments.length > UPLOAD_COMMENTS_AMOUNT) {
-    moreComments += UPLOAD_COMMENTS_AMOUNT;
+  if (comments.length > SHOW_COMMENTS_AMOUNT) {
+    moreComments += SHOW_COMMENTS_AMOUNT;
 
-    for(let i = 0; i < UPLOAD_COMMENTS_AMOUNT; i++) {
+    for(let i = 0; i < SHOW_COMMENTS_AMOUNT; i++) {
       const commentElement = createComment(comments.shift(i));
       fragment.append(commentElement);
     }
@@ -43,12 +43,12 @@ const showMoreComments = function(comments, moreComments) {
 
 
 const createComments = (comments) => {
-  const moreComments = UPLOAD_COMMENTS_AMOUNT;
+  const moreComments = SHOW_COMMENTS_AMOUNT;
   commentsList.innerHTML = '';
   const fragment = document.createDocumentFragment();
   bigPicture.querySelector('.comments-count-current').textContent = moreComments;
 
-  for(let i = 0; i < UPLOAD_COMMENTS_AMOUNT; i++) {
+  for(let i = 0; i < SHOW_COMMENTS_AMOUNT; i++) {
     const commentElement = createComment(comments.shift(i));
     fragment.append(commentElement);
   }
