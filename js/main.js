@@ -1,12 +1,13 @@
-import {createDescriptionList} from './create-description-list.js';
 import {createPreviews} from './create-previews.js';
-import {initForm} from './form.js';
+import {initForm, closeEditForm, setFormSubmit} from './form.js';
 import {initEffects} from './effects.js';
 import {initScale} from './scale.js';
+import {getData} from './api.js';
 
-const descriptions = createDescriptionList();
-
-createPreviews(descriptions);
 initForm();
 initEffects();
 initScale();
+
+getData((photos) => createPreviews(photos));
+
+setFormSubmit(closeEditForm);

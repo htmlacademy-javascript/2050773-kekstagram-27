@@ -19,41 +19,51 @@ const createComment = (data) => {
 
 const SHOW_COMMENTS_AMOUNT = 5;
 
-const showMoreComments = function(comments, moreComments) {
-
+const showMoreComments = function(comments) {
+  let currentNumber = Number(bigPicture.querySelector('.comments-count-current').textContent);
   const fragment = document.createDocumentFragment();
 
   if (comments.length > SHOW_COMMENTS_AMOUNT) {
-    moreComments += SHOW_COMMENTS_AMOUNT;
-
+    currentNumber += 5;
     for(let i = 0; i < SHOW_COMMENTS_AMOUNT; i++) {
       const commentElement = createComment(comments.shift(i));
       fragment.append(commentElement);
     }
   } else {
-    moreComments += comments.length;
+    currentNumber += comments.length;
     comments.forEach((comment, index) => {
+
       const commentElement = createComment(comments.shift(index));
       fragment.append(commentElement);
     });
   }
+  bigPicture.querySelector('.comments-count-current').textContent = currentNumber;
   commentsList.append(fragment);
-  bigPicture.querySelector('.comments-count-current').textContent = moreComments;
 };
 
-
 const createComments = (comments) => {
-  const moreComments = SHOW_COMMENTS_AMOUNT;
   commentsList.innerHTML = '';
   const fragment = document.createDocumentFragment();
-  bigPicture.querySelector('.comments-count-current').textContent = moreComments;
 
-  for(let i = 0; i < SHOW_COMMENTS_AMOUNT; i++) {
-    const commentElement = createComment(comments.shift(i));
-    fragment.append(commentElement);
+  if (comments.length < SHOW_COMMENTS_AMOUNT) {
+
+    bigPicture.querySelector('.comments-count-current').textContent = comments.length;
+
+    for(let i = 0; i < comments.length; i++) {
+      const commentElement = createComment(comments.shift());
+      fragment.append(commentElement);
+    }
+  }
+  else {
+    bigPicture.querySelector('.comments-count-current').textContent = SHOW_COMMENTS_AMOUNT;
+
+    for(let i = 0; i < SHOW_COMMENTS_AMOUNT; i++) {
+      const commentElement = createComment(comments.shift(i));
+      fragment.append(commentElement);
+    }
+    commentsLoader.addEventListener('click', () => showMoreComments(comments));
   }
   commentsList.append(fragment);
-  commentsLoader.addEventListener('click', () => showMoreComments(comments, moreComments));
 };
 
 
