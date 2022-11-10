@@ -2,7 +2,7 @@ import {isEscapeKey, showAlert} from './utils.js';
 import {scaleImage} from './scale.js';
 import {resetEffects} from './effects.js';
 import {sendData} from './api.js';
-
+import {showSuccessMessage, showErrorMessage} from './upload-messages.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadFile = uploadForm.querySelector('#upload-file');
@@ -86,15 +86,17 @@ const setFormSubmit = (onSuccess) => {
     evt.preventDefault();
 
     const isValid = pristine.validate();
+
     if (isValid) {
       blockSubmitButton();
       sendData(
         () => {
           onSuccess();
           unblockSubmitButton();
+          showSuccessMessage();
         },
         () => {
-          showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+          showErrorMessage();
           unblockSubmitButton();
         },
         new FormData(evt.target),

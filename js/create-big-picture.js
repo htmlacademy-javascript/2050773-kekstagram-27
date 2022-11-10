@@ -31,10 +31,10 @@ const showMoreComments = function(comments) {
     }
   } else {
     currentNumber += comments.length;
-    comments.forEach((comment, index) => {
-
-      const commentElement = createComment(comments.shift(index));
+    comments.forEach((comment) => {
+      const commentElement = createComment(comment);
       fragment.append(commentElement);
+      comments.shift(comment);
     });
   }
   bigPicture.querySelector('.comments-count-current').textContent = currentNumber;
@@ -46,13 +46,12 @@ const createComments = (comments) => {
   const fragment = document.createDocumentFragment();
 
   if (comments.length < SHOW_COMMENTS_AMOUNT) {
-
     bigPicture.querySelector('.comments-count-current').textContent = comments.length;
 
-    for(let i = 0; i < comments.length; i++) {
-      const commentElement = createComment(comments.shift());
+    comments.forEach((comment) => {
+      const commentElement = createComment(comment);
       fragment.append(commentElement);
-    }
+    });
   }
   else {
     bigPicture.querySelector('.comments-count-current').textContent = SHOW_COMMENTS_AMOUNT;
