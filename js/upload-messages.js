@@ -29,7 +29,6 @@ const showErrorMessage = () => {
 };
 
 function hideMessage () {
-  console.log('privet');
   const messageElement = document.querySelector('.success') || document.querySelector('.error');
   messageElement.remove();
   document.removeEventListener('keydown', onEscKeyDown);
