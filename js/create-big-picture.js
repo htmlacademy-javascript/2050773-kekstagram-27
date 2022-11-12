@@ -3,6 +3,7 @@ const bigPicture = document.querySelector('.big-picture');
 const cancelButton = document.querySelector('.big-picture__cancel');
 const commentsLoader = document.querySelector('.comments-loader');
 const commentsList = document.querySelector('.social__comments');
+const commentsCountCurrent = bigPicture.querySelector('.comments-count-current');
 
 
 const createComment = (data) => {
@@ -20,24 +21,28 @@ const createComment = (data) => {
 const SHOW_COMMENTS_AMOUNT = 5;
 
 const showMoreComments = function(comments) {
-  let currentNumber = Number(bigPicture.querySelector('.comments-count-current').textContent);
+  let currentNumber = Number(commentsCountCurrent.textContent);
   const fragment = document.createDocumentFragment();
 
-  if (comments.length > SHOW_COMMENTS_AMOUNT) {
-    currentNumber += 5;
-    for(let i = 0; i < SHOW_COMMENTS_AMOUNT; i++) {
-      const commentElement = createComment(comments.shift(i));
-      fragment.append(commentElement);
-    }
-  } else {
-    currentNumber += comments.length;
-    comments.forEach((comment) => {
+  if ((comments.length - currentNumber) > SHOW_COMMENTS_AMOUNT) {
+    comments.slice(currentNumber, currentNumber + SHOW_COMMENTS_AMOUNT).forEach((comment) => {
       const commentElement = createComment(comment);
       fragment.append(commentElement);
-      comments.shift(comment);
     });
+
+    currentNumber += SHOW_COMMENTS_AMOUNT;
+
+  } else {
+    comments.slice(currentNumber).forEach((comment) => {
+      const commentElement = createComment(comment);
+      fragment.append(commentElement);
+      commentsLoader.classList.add('visually-hidden');
+    });
+
+    currentNumber += comments.length - currentNumber;
   }
-  bigPicture.querySelector('.comments-count-current').textContent = currentNumber;
+
+  commentsCountCurrent.textContent = currentNumber;
   commentsList.append(fragment);
 };
 
@@ -46,18 +51,20 @@ const createComments = (comments) => {
   const fragment = document.createDocumentFragment();
 
   if (comments.length < SHOW_COMMENTS_AMOUNT) {
-    bigPicture.querySelector('.comments-count-current').textContent = comments.length;
+    commentsLoader.classList.add('visually-hidden');
+    commentsCountCurrent.textContent = comments.length;
 
     comments.forEach((comment) => {
       const commentElement = createComment(comment);
       fragment.append(commentElement);
     });
   }
+
   else {
-    bigPicture.querySelector('.comments-count-current').textContent = SHOW_COMMENTS_AMOUNT;
+    commentsCountCurrent.textContent = SHOW_COMMENTS_AMOUNT;
 
     for(let i = 0; i < SHOW_COMMENTS_AMOUNT; i++) {
-      const commentElement = createComment(comments.shift(i));
+      const commentElement = createComment(comments[i]);
       fragment.append(commentElement);
     }
     commentsLoader.addEventListener('click', () => showMoreComments(comments));

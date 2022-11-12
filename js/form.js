@@ -79,6 +79,7 @@ const blockSubmitButton = () => {
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
 };
 
 const setFormSubmit = (onSuccess) => {

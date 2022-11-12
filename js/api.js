@@ -1,5 +1,7 @@
+const BASE_URL = 'https://27.javascript.pages.academy/kekstagram';
+
 const getData = (onSuccess) => {
-  fetch('https://27.javascript.pages.academy/kekstagram/data')
+  fetch(BASE_URL + '/data')
     .then((response) => response.json())
     .then((photos) => {
       onSuccess(photos);
@@ -8,7 +10,7 @@ const getData = (onSuccess) => {
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://27.javascript.pages.academy/kekstagram',
+    BASE_URL,
     {
       method: 'POST',
       body,
