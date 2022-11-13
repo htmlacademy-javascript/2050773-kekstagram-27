@@ -1,7 +1,7 @@
 const BASE_URL = 'https://27.javascript.pages.academy/kekstagram';
 
 const getData = (onSuccess) => {
-  fetch(BASE_URL + '/data')
+  fetch(`${BASE_URL}/data`)
     .then((response) => response.json())
     .then((photos) => {
       onSuccess(photos);

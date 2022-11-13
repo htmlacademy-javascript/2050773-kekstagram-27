@@ -82,7 +82,7 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
-const setFormSubmit = (onSuccess) => {
+const initFormSubmit = (onSuccess) => {
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -91,6 +91,7 @@ const setFormSubmit = (onSuccess) => {
     if (isValid) {
       blockSubmitButton();
       sendData(
+        new FormData(evt.target),
         () => {
           onSuccess();
           unblockSubmitButton();
@@ -100,10 +101,9 @@ const setFormSubmit = (onSuccess) => {
           showErrorMessage();
           unblockSubmitButton();
         },
-        new FormData(evt.target),
       );
     }
   });
 };
 
-export {initForm, closeEditForm, setFormSubmit};
+export {initForm, closeEditForm, initFormSubmit};
