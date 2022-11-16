@@ -8,7 +8,7 @@ const getData = (onSuccess) => {
     });
 };
 
-const sendData = (onSuccess, onFail, body) => {
+const sendData = (body, onSuccess, onFail) => {
   fetch(
     BASE_URL,
     {
