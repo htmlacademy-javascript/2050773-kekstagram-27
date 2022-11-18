@@ -1,8 +1,10 @@
 import {showBigPicture} from './create-big-picture.js';
+import {getRandomArrayElement} from './utils.js';
 
-const buttonFilteredByLikes = document.querySelector('#filter-discussed');
-const buttonFilteredRandom = document.querySelector('#filter-random');
 const RANDOM_PICS_AMOUNT = 10;
+const discussedFilterButton = document.querySelector('#filter-discussed');
+const randomFilterButton = document.querySelector('#filter-random');
+const defaultFilterButton = document.querySelector('#filter-default');
 
 
 const compareLikes = (picA, picB) => {
@@ -12,20 +14,43 @@ const compareLikes = (picA, picB) => {
   return likeB - likeA;
 };
 
-const setLikesClick = (data, cb) => {
-  buttonFilteredByLikes.addEventListener('click', () => {
+const initDefaultFilter = (data, cb) => {
+  defaultFilterButton.addEventListener('click', () => {
+    discussedFilterButton.classList.remove('img-filters__button--active');
+    randomFilterButton.classList.remove('img-filters__button--active');
+    defaultFilterButton.classList.add('img-filters__button--active');
+
+    cb(data);
+  });
+};
+
+const initDiscussedFilter = (data, cb) => {
+
+  discussedFilterButton.addEventListener('click', () => {
+    defaultFilterButton.classList.remove('img-filters__button--active');
+    randomFilterButton.classList.remove('img-filters__button--active');
+    discussedFilterButton.classList.add('img-filters__button--active');
+
     const sortedData = data.slice().sort(compareLikes);
     cb(sortedData);
   });
 };
 
 const getRandomPhotosArray = (data) => {
-  const newArray = data.slice(0, RANDOM_PICS_AMOUNT);
-  return newArray.sort(() => Math.round(Math.random() * 100) - 50);
+  const newArray = [];
+
+  for (let i = 0; i < RANDOM_PICS_AMOUNT; i++) {
+    newArray.push(getRandomArrayElement(data));
+  }
+
+  return newArray;
 };
 
-const setRandomClick = (data, cb) => {
-  buttonFilteredRandom.addEventListener('click', () => {
+const initRandomFilter = (data, cb) => {
+  randomFilterButton.addEventListener('click', () => {
+    defaultFilterButton.classList.remove('img-filters__button--active');
+    discussedFilterButton.classList.remove('img-filters__button--active');
+    randomFilterButton.classList.add('img-filters__button--active');
     cb(getRandomPhotosArray(data));
   });
 };
@@ -55,4 +80,4 @@ const createPreviews = (data) => {
   imageFilters.classList.remove('img-filters--inactive');
 };
 
-export {createPreviews, setLikesClick, setRandomClick};
+export {createPreviews, initDefaultFilter, initDiscussedFilter, initRandomFilter};

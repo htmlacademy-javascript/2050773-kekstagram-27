@@ -1,4 +1,4 @@
-import {createPreviews, setLikesClick, setRandomClick} from './create-previews.js';
+import {createPreviews, initDefaultFilter, initDiscussedFilter, initRandomFilter} from './create-previews.js';
 import {initForm, closeEditForm, initFormSubmit} from './form.js';
 import {initEffects} from './effects.js';
 import {initScale} from './scale.js';
@@ -11,8 +11,9 @@ initScale();
 
 getData((photos) => {
   createPreviews(photos);
-  setLikesClick(photos, (sortedPhotos) => createPreviews(sortedPhotos));
-  setRandomClick(photos, (sortedPhotos) => createPreviews(sortedPhotos));
+  initDefaultFilter(photos, () => createPreviews(photos));
+  initDiscussedFilter(photos, (sortedPhotos) => createPreviews(sortedPhotos));
+  initRandomFilter(photos, (sortedPhotos) => createPreviews(sortedPhotos));
 });
 // getData((photos) => createPreviews(SortDataByLikes(photos)));
 
