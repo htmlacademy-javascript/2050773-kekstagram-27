@@ -1,5 +1,6 @@
 const ALERT_SHOW_TIME = 5000;
 
+
 const getRandomNumber = function(min, max) {
   if (min < 0 || max < 0 || isNaN(min) || isNaN(max) || min >= max) {
     throw new Error('Некорректный аргумент функции');
@@ -37,5 +38,18 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
 
-export {getRandomNumber, getRandomArrayElement, isMaxLength, isEscapeKey, showAlert};
+  return (...rest) => {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+// Функция взята из интернета и доработана
+// Источник - https://www.freecodecamp.org/news/javascript-debounce-example
+
+
+export {getRandomNumber, getRandomArrayElement, isMaxLength, isEscapeKey, showAlert, debounce};

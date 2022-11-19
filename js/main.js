@@ -3,6 +3,9 @@ import {initForm, closeEditForm, initFormSubmit} from './form.js';
 import {initEffects} from './effects.js';
 import {initScale} from './scale.js';
 import {getData} from './api.js';
+import {debounce} from './utils.js';
+
+const RERENDER_DELAY = 500;
 
 
 initForm();
@@ -11,10 +14,10 @@ initScale();
 
 getData((photos) => {
   createPreviews(photos);
-  initDefaultFilter(photos, () => createPreviews(photos));
-  initDiscussedFilter(photos, (sortedPhotos) => createPreviews(sortedPhotos));
-  initRandomFilter(photos, (sortedPhotos) => createPreviews(sortedPhotos));
+  initDefaultFilter(photos, debounce(() => createPreviews(photos), RERENDER_DELAY));
+  initDiscussedFilter(photos, debounce((sortedPhotos) => createPreviews(sortedPhotos), RERENDER_DELAY));
+  initRandomFilter(photos, debounce((sortedPhotos) => createPreviews(sortedPhotos), RERENDER_DELAY));
 });
-// getData((photos) => createPreviews(SortDataByLikes(photos)));
+
 
 initFormSubmit(closeEditForm);
