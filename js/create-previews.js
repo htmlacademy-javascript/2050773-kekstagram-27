@@ -61,6 +61,12 @@ const createPreviews = (data) => {
   const similarUserFragment = document.createDocumentFragment();
   const imageFilters = document.querySelector('.img-filters');
 
+  const pictures = document.querySelectorAll('.picture');
+
+  for (let i = 0; i < pictures.length; i++) {
+    pictures[i].remove();
+  }
+
 
   data.forEach(({url, likes, comments, description}, index) => {
     const userPicture = pictureTemplate.cloneNode(true);
