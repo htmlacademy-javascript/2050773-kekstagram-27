@@ -6,7 +6,6 @@ import {getData} from './api.js';
 import {debounce} from './utils.js';
 
 
-
 initForm();
 initEffects();
 initScale();
