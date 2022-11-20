@@ -1,9 +1,72 @@
 import {showBigPicture} from './create-big-picture.js';
+import {getRandomArrayElement} from './utils.js';
+
+const RANDOM_PICS_AMOUNT = 10;
+const discussedFilterButton = document.querySelector('#filter-discussed');
+const randomFilterButton = document.querySelector('#filter-random');
+const defaultFilterButton = document.querySelector('#filter-default');
+
+
+const compareLikes = (picA, picB) => {
+  const likeA = picA.likes;
+  const likeB = picB.likes;
+
+  return likeB - likeA;
+};
+
+const initDefaultFilter = (data, cb) => {
+  defaultFilterButton.addEventListener('click', () => {
+    const activeButton = document.querySelector('.img-filters__button--active');
+    activeButton.classList.remove('img-filters__button--active');
+    defaultFilterButton.classList.add('img-filters__button--active');
+
+    cb(data);
+  });
+};
+
+const initDiscussedFilter = (data, cb) => {
+
+  discussedFilterButton.addEventListener('click', () => {
+    const activeButton = document.querySelector('.img-filters__button--active');
+    activeButton.classList.remove('img-filters__button--active');
+    discussedFilterButton.classList.add('img-filters__button--active');
+
+    const sortedData = data.slice().sort(compareLikes);
+    cb(sortedData);
+  });
+};
+
+const getRandomPhotosArray = (data) => {
+  const newArray = [];
+
+  for (let i = 0; i < RANDOM_PICS_AMOUNT; i++) {
+    newArray.push(getRandomArrayElement(data));
+  }
+
+  return newArray;
+};
+
+const initRandomFilter = (data, cb) => {
+  randomFilterButton.addEventListener('click', () => {
+    const activeButton = document.querySelector('.img-filters__button--active');
+    activeButton.classList.remove('img-filters__button--active');
+    randomFilterButton.classList.add('img-filters__button--active');
+    cb(getRandomPhotosArray(data));
+  });
+};
 
 const createPreviews = (data) => {
   const picturesList = document.querySelector('.pictures');
   const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   const similarUserFragment = document.createDocumentFragment();
+  const imageFilters = document.querySelector('.img-filters');
+
+  const pictures = document.querySelectorAll('.picture');
+
+  for (let i = 0; i < pictures.length; i++) {
+    pictures[i].remove();
+  }
+
 
   data.forEach(({url, likes, comments, description}, index) => {
     const userPicture = pictureTemplate.cloneNode(true);
@@ -20,6 +83,7 @@ const createPreviews = (data) => {
     });
   });
   picturesList.appendChild(similarUserFragment);
+  imageFilters.classList.remove('img-filters--inactive');
 };
 
-export {createPreviews};
+export {createPreviews, initDefaultFilter, initDiscussedFilter, initRandomFilter};
