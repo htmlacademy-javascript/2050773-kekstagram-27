@@ -4,7 +4,7 @@ import {initEffects} from './effects.js';
 import {initScale} from './scale.js';
 import {getData} from './api.js';
 import {debounce} from './utils.js';
-import {uploadPicture} from './upload-picture.js';
+import {initUploadPicture} from './upload-picture.js';
 
 
 initForm();
@@ -18,6 +18,6 @@ getData((photos) => {
   initRandomFilter(photos, debounce((sortedPhotos) => createPreviews(sortedPhotos)));
 });
 
-uploadPicture();
+initUploadPicture();
 
 initFormSubmit(closeEditForm);

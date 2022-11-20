@@ -3,7 +3,7 @@ const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const fileChooser = document.querySelector('#upload-file');
 const preview = document.querySelector('.img-upload__preview img');
 
-const uploadPicture = () => fileChooser.addEventListener('change', () => {
+const initUploadPicture = () => {fileChooser.addEventListener('change', () => {
   const file = fileChooser.files[0];
   const fileName = file.name.toLowerCase();
 
@@ -12,6 +12,6 @@ const uploadPicture = () => fileChooser.addEventListener('change', () => {
   if (matches) {
     preview.src = URL.createObjectURL(file);
   }
-});
+});};
 
-export {uploadPicture};
+export {initUploadPicture};

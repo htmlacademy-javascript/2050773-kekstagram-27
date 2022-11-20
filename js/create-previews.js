@@ -37,12 +37,12 @@ const initDiscussedFilter = (data, cb) => {
 
 const getRandomPhotosArray = (data) => {
   const RANDOM_PICS_AMOUNT = 10;
-  const newArray = new Set();
+  const newSet = new Set();
 
-  while (newArray.size < RANDOM_PICS_AMOUNT) {
-    newArray.add(getRandomArrayElement(data));
+  while (newSet.size < RANDOM_PICS_AMOUNT) {
+    newSet.add(getRandomArrayElement(data));
   }
-  return Array.from(newArray);
+  return Array.from(newSet);
 };
 
 const initRandomFilter = (data, cb) => {
