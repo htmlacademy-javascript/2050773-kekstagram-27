@@ -1,7 +1,6 @@
 import {showBigPicture} from './create-big-picture.js';
 import {getRandomArrayElement} from './utils.js';
 
-const RANDOM_PICS_AMOUNT = 10;
 const discussedFilterButton = document.querySelector('#filter-discussed');
 const randomFilterButton = document.querySelector('#filter-random');
 const defaultFilterButton = document.querySelector('#filter-default');
@@ -37,13 +36,13 @@ const initDiscussedFilter = (data, cb) => {
 };
 
 const getRandomPhotosArray = (data) => {
-  const newArray = [];
+  const RANDOM_PICS_AMOUNT = 10;
+  const newArray = new Set();
 
-  for (let i = 0; i < RANDOM_PICS_AMOUNT; i++) {
-    newArray.push(getRandomArrayElement(data));
+  while (newArray.size < RANDOM_PICS_AMOUNT) {
+    newArray.add(getRandomArrayElement(data));
   }
-
-  return newArray;
+  return Array.from(newArray);
 };
 
 const initRandomFilter = (data, cb) => {
