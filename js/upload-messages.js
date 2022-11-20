@@ -12,20 +12,33 @@ function onEscKeyDown(evt) {
   }
 }
 
+const clickOnScreen = () => document.addEventListener( 'click', (e) => {
+  const messageElement = document.querySelector('.success__inner');
+  const withinBoundaries = e.composedPath().includes(messageElement);
+
+  if (!withinBoundaries) {
+    hideMessage();
+  }
+});
+
 const showSuccessMessage = () => {
   const successMessage = successTemplate.cloneNode(true);
   const successButton = successMessage.querySelector('.success__button');
+
   document.addEventListener('keydown', onEscKeyDown);
   successButton.addEventListener('click', hideMessage);
   body.append(successMessage);
+  clickOnScreen();
 };
 
 const showErrorMessage = () => {
   const errorMessage = errorTemplate.cloneNode(true);
   const errorButton = errorMessage.querySelector('.error__button');
+
   document.addEventListener('keydown', onEscKeyDown);
   errorButton.addEventListener('click', hideMessage);
   body.append(errorMessage);
+  clickOnScreen();
 };
 
 function hideMessage () {
