@@ -1,4 +1,5 @@
 const ALERT_SHOW_TIME = 5000;
+const RERENDER_DELAY = 500;
 
 
 const getRandomNumber = function(min, max) {
@@ -38,7 +39,7 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-const debounce = (callback, timeoutDelay) => {
+const debounce = (callback, timeoutDelay = RERENDER_DELAY) => {
   let timeoutId;
 
   return (...rest) => {

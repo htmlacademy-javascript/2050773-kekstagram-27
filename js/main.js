@@ -5,7 +5,6 @@ import {initScale} from './scale.js';
 import {getData} from './api.js';
 import {debounce} from './utils.js';
 
-const RERENDER_DELAY = 500;
 
 
 initForm();
@@ -14,9 +13,9 @@ initScale();
 
 getData((photos) => {
   createPreviews(photos);
-  initDefaultFilter(photos, debounce(() => createPreviews(photos), RERENDER_DELAY));
-  initDiscussedFilter(photos, debounce((sortedPhotos) => createPreviews(sortedPhotos), RERENDER_DELAY));
-  initRandomFilter(photos, debounce((sortedPhotos) => createPreviews(sortedPhotos), RERENDER_DELAY));
+  initDefaultFilter(photos, debounce(() => createPreviews(photos)));
+  initDiscussedFilter(photos, debounce((sortedPhotos) => createPreviews(sortedPhotos)));
+  initRandomFilter(photos, debounce((sortedPhotos) => createPreviews(sortedPhotos)));
 });
 
 

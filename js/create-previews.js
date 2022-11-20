@@ -16,8 +16,8 @@ const compareLikes = (picA, picB) => {
 
 const initDefaultFilter = (data, cb) => {
   defaultFilterButton.addEventListener('click', () => {
-    discussedFilterButton.classList.remove('img-filters__button--active');
-    randomFilterButton.classList.remove('img-filters__button--active');
+    const activeButton = document.querySelector('.img-filters__button--active');
+    activeButton.classList.remove('img-filters__button--active');
     defaultFilterButton.classList.add('img-filters__button--active');
 
     cb(data);
@@ -27,8 +27,8 @@ const initDefaultFilter = (data, cb) => {
 const initDiscussedFilter = (data, cb) => {
 
   discussedFilterButton.addEventListener('click', () => {
-    defaultFilterButton.classList.remove('img-filters__button--active');
-    randomFilterButton.classList.remove('img-filters__button--active');
+    const activeButton = document.querySelector('.img-filters__button--active');
+    activeButton.classList.remove('img-filters__button--active');
     discussedFilterButton.classList.add('img-filters__button--active');
 
     const sortedData = data.slice().sort(compareLikes);
@@ -48,8 +48,8 @@ const getRandomPhotosArray = (data) => {
 
 const initRandomFilter = (data, cb) => {
   randomFilterButton.addEventListener('click', () => {
-    defaultFilterButton.classList.remove('img-filters__button--active');
-    discussedFilterButton.classList.remove('img-filters__button--active');
+    const activeButton = document.querySelector('.img-filters__button--active');
+    activeButton.classList.remove('img-filters__button--active');
     randomFilterButton.classList.add('img-filters__button--active');
     cb(getRandomPhotosArray(data));
   });
