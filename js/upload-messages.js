@@ -12,15 +12,16 @@ function onEscKeyDown(evt) {
   }
 }
 
-const initClickOnScreen = () => {document.addEventListener( 'click', (e) => {
-  const messageElement = document.querySelector('.success__inner');
-  const withinBoundaries = e.composedPath().includes(messageElement);
+const initClickOnScreen = () => {
+  document.addEventListener( 'click', (e) => {
+    const messageElement = document.querySelector('.success__inner');
+    const withinBoundaries = e.composedPath().includes(messageElement);
 
-  if (!withinBoundaries && messageElement) {
-    hideMessage();
-  }
-});};
-
+    if (!withinBoundaries && messageElement) {
+      hideMessage();
+    }
+  });
+};
 
 const showSuccessMessage = () => {
   const successMessage = successTemplate.cloneNode(true);

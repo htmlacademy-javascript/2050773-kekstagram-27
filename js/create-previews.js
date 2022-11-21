@@ -1,10 +1,11 @@
 import {showBigPicture} from './create-big-picture.js';
 import {getRandomArrayElement} from './utils.js';
+import {debounce} from './utils.js';
+
 
 const discussedFilterButton = document.querySelector('#filter-discussed');
 const randomFilterButton = document.querySelector('#filter-random');
 const defaultFilterButton = document.querySelector('#filter-default');
-
 
 const compareLikes = (picA, picB) => {
   const likeA = picA.likes;
@@ -37,12 +38,12 @@ const initDiscussedFilter = (data, cb) => {
 
 const getRandomPhotosArray = (data) => {
   const RANDOM_PICS_AMOUNT = 10;
-  const newSet = new Set();
+  const randomPics = new Set();
 
-  while (newSet.size < RANDOM_PICS_AMOUNT) {
-    newSet.add(getRandomArrayElement(data));
+  while (randomPics.size < RANDOM_PICS_AMOUNT) {
+    randomPics.add(getRandomArrayElement(data));
   }
-  return Array.from(newSet);
+  return Array.from(randomPics);
 };
 
 const initRandomFilter = (data, cb) => {
@@ -54,7 +55,7 @@ const initRandomFilter = (data, cb) => {
   });
 };
 
-const createPreviews = (data) => {
+const createPreviews = debounce((data) => {
   const picturesList = document.querySelector('.pictures');
   const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   const similarUserFragment = document.createDocumentFragment();
@@ -65,7 +66,6 @@ const createPreviews = (data) => {
   for (let i = 0; i < pictures.length; i++) {
     pictures[i].remove();
   }
-
 
   data.forEach(({url, likes, comments, description}, index) => {
     const userPicture = pictureTemplate.cloneNode(true);
@@ -83,6 +83,7 @@ const createPreviews = (data) => {
   });
   picturesList.appendChild(similarUserFragment);
   imageFilters.classList.remove('img-filters--inactive');
-};
+});
+
 
 export {createPreviews, initDefaultFilter, initDiscussedFilter, initRandomFilter};

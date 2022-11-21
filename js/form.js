@@ -13,7 +13,6 @@ const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
 
-
 const MAX_HASHTAG_COUNT = 5;
 const VALID_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
 
@@ -65,7 +64,6 @@ const validateHashtags = (value) => {
 };
 
 pristine.addValidator(hashtagField, validateHashtags, 'хештег должен начинаться с # и быть короче 19 символов, не больше 5 хештегов');
-
 
 const initForm = () => {
   uploadFile.addEventListener('change', showModal);

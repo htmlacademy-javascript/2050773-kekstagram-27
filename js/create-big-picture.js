@@ -5,6 +5,7 @@ const commentsLoader = document.querySelector('.comments-loader');
 const commentsList = document.querySelector('.social__comments');
 const commentsCountCurrent = bigPicture.querySelector('.comments-count-current');
 
+const SHOW_COMMENTS_AMOUNT = 5;
 
 const createComment = (data) => {
   const comment = document.createElement('li');
@@ -17,8 +18,6 @@ const createComment = (data) => {
 
   return comment;
 };
-
-const SHOW_COMMENTS_AMOUNT = 5;
 
 const showMoreComments = function(comments) {
   let currentNumber = Number(commentsCountCurrent.textContent);
@@ -71,7 +70,6 @@ const createComments = (comments) => {
   }
   commentsList.append(fragment);
 };
-
 
 const hideBigPicture = () => {
   bigPicture.classList.add('hidden');
