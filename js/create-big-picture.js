@@ -7,6 +7,7 @@ const commentsCountCurrent = bigPicture.querySelector('.comments-count-current')
 
 const SHOW_COMMENTS_AMOUNT = 5;
 
+
 const createComment = (data) => {
   const comment = document.createElement('li');
   comment.classList.add('social__comment');
@@ -21,6 +22,7 @@ const createComment = (data) => {
 
 const showMoreComments = function(comments) {
   let currentNumber = Number(commentsCountCurrent.textContent);
+
   const fragment = document.createDocumentFragment();
 
   if ((comments.length - currentNumber) > SHOW_COMMENTS_AMOUNT) {
@@ -38,7 +40,7 @@ const showMoreComments = function(comments) {
       commentsLoader.classList.add('visually-hidden');
     });
 
-    currentNumber += comments.length - currentNumber;
+    currentNumber += (comments.length - currentNumber);
   }
 
   commentsCountCurrent.textContent = currentNumber;
@@ -49,7 +51,7 @@ const createComments = (comments) => {
   commentsList.innerHTML = '';
   const fragment = document.createDocumentFragment();
 
-  if (comments.length < SHOW_COMMENTS_AMOUNT) {
+  if (comments.length <= SHOW_COMMENTS_AMOUNT) {
     commentsLoader.classList.add('visually-hidden');
     commentsCountCurrent.textContent = comments.length;
 
@@ -74,6 +76,9 @@ const createComments = (comments) => {
 const hideBigPicture = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
+  commentsLoader.classList.remove('visually-hidden');
+  commentsLoader.removeEventListener('click', () => showMoreComments());
+  document.removeEventListener('keydown', onEscKeyDown);
 };
 
 function onEscKeyDown(evt) {
