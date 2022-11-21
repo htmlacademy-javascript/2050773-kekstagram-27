@@ -56,13 +56,14 @@ const onSliderUpdate = () => {
   effectLevel.value = sliderValue;
 };
 
-
 const resetEffects = () => {
   chosenEffect = DEFAULT_EFFECT;
   updateSlider();
 };
 
 const initEffects = () => {
+  chosenEffect = DEFAULT_EFFECT;
+
   noUiSlider.create(sliderElement, {
     range: {
       min: DEFAULT_EFFECT.min,
@@ -72,6 +73,8 @@ const initEffects = () => {
     step: DEFAULT_EFFECT.step,
     connect: 'lower',
   });
+
+  updateSlider();
 
   form.addEventListener('change', onFormChange);
   sliderElement.noUiSlider.on('update', onSliderUpdate);

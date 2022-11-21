@@ -1,7 +1,6 @@
 const ALERT_SHOW_TIME = 5000;
 const RERENDER_DELAY = 500;
 
-
 const getRandomNumber = function(min, max) {
   if (min < 0 || max < 0 || isNaN(min) || isNaN(max) || min >= max) {
     throw new Error('Некорректный аргумент функции');
