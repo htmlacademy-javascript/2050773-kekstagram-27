@@ -16,7 +16,7 @@ const initClickOnScreen = () => {document.addEventListener( 'click', (e) => {
   const messageElement = document.querySelector('.success__inner');
   const withinBoundaries = e.composedPath().includes(messageElement);
 
-  if (!withinBoundaries) {
+  if (!withinBoundaries && messageElement) {
     hideMessage();
   }
 });};
