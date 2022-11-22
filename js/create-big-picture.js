@@ -7,6 +7,7 @@ const commentsCountCurrent = bigPicture.querySelector('.comments-count-current')
 
 const SHOW_COMMENTS_AMOUNT = 5;
 
+let comments;
 
 const createComment = (data) => {
   const comment = document.createElement('li');
@@ -20,7 +21,7 @@ const createComment = (data) => {
   return comment;
 };
 
-const showMoreComments = function(comments) {
+const showMoreComments = function() {
   let currentNumber = Number(commentsCountCurrent.textContent);
 
   const fragment = document.createDocumentFragment();
@@ -37,8 +38,8 @@ const showMoreComments = function(comments) {
     comments.slice(currentNumber).forEach((comment) => {
       const commentElement = createComment(comment);
       fragment.append(commentElement);
-      commentsLoader.classList.add('visually-hidden');
     });
+    commentsLoader.classList.add('hidden');
 
     currentNumber += (comments.length - currentNumber);
   }
@@ -47,12 +48,13 @@ const showMoreComments = function(comments) {
   commentsList.append(fragment);
 };
 
+// eslint-disable-next-line no-shadow
 const createComments = (comments) => {
   commentsList.innerHTML = '';
   const fragment = document.createDocumentFragment();
 
   if (comments.length <= SHOW_COMMENTS_AMOUNT) {
-    commentsLoader.classList.add('visually-hidden');
+    commentsLoader.classList.add('hidden');
     commentsCountCurrent.textContent = comments.length;
 
     comments.forEach((comment) => {
@@ -68,7 +70,7 @@ const createComments = (comments) => {
       const commentElement = createComment(comments[i]);
       fragment.append(commentElement);
     }
-    commentsLoader.addEventListener('click', () => showMoreComments(comments));
+    commentsLoader.addEventListener('click', showMoreComments);
   }
   commentsList.append(fragment);
 };
@@ -76,8 +78,8 @@ const createComments = (comments) => {
 const hideBigPicture = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
-  commentsLoader.classList.remove('visually-hidden');
-  commentsLoader.removeEventListener('click', () => showMoreComments());
+  commentsLoader.classList.remove('hidden');
+  commentsLoader.removeEventListener('click', showMoreComments);
   document.removeEventListener('keydown', onEscKeyDown);
 };
 
@@ -103,6 +105,8 @@ const showBigPicture = (data) => {
 
   createBigPictureDetails(data);
   createComments(data.comments);
+
+  comments = data.comments;
 
   cancelButton.addEventListener('click', hideBigPicture);
 };
