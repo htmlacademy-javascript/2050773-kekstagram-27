@@ -48,6 +48,7 @@ const showMoreComments = function() {
   commentsList.append(fragment);
 };
 
+// eslint-disable-next-line no-shadow
 const createComments = (comments) => {
   commentsList.innerHTML = '';
   const fragment = document.createDocumentFragment();
