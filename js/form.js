@@ -20,8 +20,8 @@ const VALID_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
 const isTextFieldFocused = () =>
   document.activeElement === hashtagField || document.activeElement === commentField;
 
-const onPopupEscKeydown = (evt) => {
-  if (isEscapeKey(evt) && !isTextFieldFocused()) {
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt) && !isTextFieldFocused() && !document.querySelector('.error')) {
     evt.preventDefault();
     closeEditForm();
   }
@@ -36,7 +36,7 @@ const pristine = new Pristine(uploadForm, {
 const showModal = () => {
   editForm.classList.remove('hidden');
   body.classList.add('modal-open');
-  document.addEventListener('keydown', onPopupEscKeydown);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 function closeEditForm () {
@@ -46,7 +46,7 @@ function closeEditForm () {
   pristine.reset();
   scaleImage();
   resetEffects();
-  document.removeEventListener('keydown', onPopupEscKeydown);
+  document.removeEventListener('keydown', onDocumentKeydown);
 }
 
 const isValidTag = (tag) => VALID_HASHTAG.test(tag);
@@ -63,7 +63,7 @@ const validateHashtags = (value) => {
   return hasValidCount(hashtags) && hasUniqueTags(hashtags) && hashtags.every(isValidTag);
 };
 
-pristine.addValidator(hashtagField, validateHashtags, 'хештег должен начинаться с # и быть короче 19 символов, не больше 5 хештегов');
+pristine.addValidator(hashtagField, validateHashtags, `хештег должен начинаться с # и быть короче 19 символов, не больше ${MAX_HASHTAG_COUNT} хештегов`);
 
 const initForm = () => {
   uploadFile.addEventListener('change', showModal);

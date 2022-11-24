@@ -7,11 +7,11 @@ const discussedFilterButton = document.querySelector('#filter-discussed');
 const randomFilterButton = document.querySelector('#filter-random');
 const defaultFilterButton = document.querySelector('#filter-default');
 
-const compareLikes = (picA, picB) => {
-  const likeA = picA.likes;
-  const likeB = picB.likes;
+const compareComments = (picA, picB) => {
+  const commentA = picA.comments.length;
+  const commentB = picB.comments.length;
 
-  return likeB - likeA;
+  return commentB - commentA;
 };
 
 const initDefaultFilter = (data, cb) => {
@@ -31,7 +31,7 @@ const initDiscussedFilter = (data, cb) => {
     activeButton.classList.remove('img-filters__button--active');
     discussedFilterButton.classList.add('img-filters__button--active');
 
-    const sortedData = data.slice().sort(compareLikes);
+    const sortedData = data.slice().sort(compareComments);
     cb(sortedData);
   });
 };
@@ -63,9 +63,9 @@ const createPreviews = debounce((data) => {
 
   const pictures = document.querySelectorAll('.picture');
 
-  for (let i = 0; i < pictures.length; i++) {
-    pictures[i].remove();
-  }
+  pictures.forEach((picture) => {
+    picture.remove();
+  });
 
   data.forEach(({url, likes, comments, description}, index) => {
     const userPicture = pictureTemplate.cloneNode(true);
