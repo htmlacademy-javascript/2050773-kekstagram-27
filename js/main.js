@@ -17,4 +17,6 @@ getData((photos) => {
 });
 
 initUploadPicture();
+
+
 initFormSubmit(closeEditForm);

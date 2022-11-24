@@ -66,10 +66,11 @@ const createComments = (comments) => {
   else {
     commentsCountCurrent.textContent = SHOW_COMMENTS_AMOUNT;
 
-    for(let i = 0; i < SHOW_COMMENTS_AMOUNT; i++) {
-      const commentElement = createComment(comments[i]);
+    comments.slice(0, SHOW_COMMENTS_AMOUNT).forEach((comment) => {
+      const commentElement = createComment(comment);
       fragment.append(commentElement);
-    }
+    });
+
     commentsLoader.addEventListener('click', showMoreComments);
   }
   commentsList.append(fragment);
@@ -80,10 +81,10 @@ const hideBigPicture = () => {
   body.classList.remove('modal-open');
   commentsLoader.classList.remove('hidden');
   commentsLoader.removeEventListener('click', showMoreComments);
-  document.removeEventListener('keydown', onEscKeyDown);
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-function onEscKeyDown(evt) {
+function onDocumentKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.stopPropagation();
     evt.preventDefault();
@@ -101,7 +102,7 @@ const createBigPictureDetails = (data) => {
 const showBigPicture = (data) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  document.addEventListener('keydown', onEscKeyDown);
+  document.addEventListener('keydown', onDocumentKeydown);
 
   createBigPictureDetails(data);
   createComments(data.comments);

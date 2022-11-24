@@ -5,7 +5,7 @@ const errorTemplate = document.querySelector('#error').content.querySelector('.e
 const body = document.querySelector('body');
 
 
-function onEscKeyDown(evt) {
+function onDocumentKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     hideMessage();
@@ -27,7 +27,7 @@ const showSuccessMessage = () => {
   const successMessage = successTemplate.cloneNode(true);
   const successButton = successMessage.querySelector('.success__button');
 
-  document.addEventListener('keydown', onEscKeyDown);
+  document.addEventListener('keydown', onDocumentKeydown);
   successButton.addEventListener('click', hideMessage);
   body.append(successMessage);
   initClickOnScreen();
@@ -37,16 +37,16 @@ const showErrorMessage = () => {
   const errorMessage = errorTemplate.cloneNode(true);
   const errorButton = errorMessage.querySelector('.error__button');
 
-  document.addEventListener('keydown', onEscKeyDown);
+  document.addEventListener('keydown', onDocumentKeydown);
+  initClickOnScreen();
   errorButton.addEventListener('click', hideMessage);
   body.append(errorMessage);
-  initClickOnScreen();
 };
 
 function hideMessage () {
   const messageElement = document.querySelector('.success') || document.querySelector('.error');
   messageElement.remove();
-  document.removeEventListener('keydown', onEscKeyDown);
+  document.removeEventListener('keydown', onDocumentKeydown);
 }
 
 export {showSuccessMessage, showErrorMessage};
